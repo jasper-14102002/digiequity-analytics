@@ -549,14 +549,9 @@ with tab3:
                         'didi_score_equal']],
             on='country_name', how='left'
         )
-         if 'country_code' in map_data.columns:
-            map_data = map_data.dropna(subset=['country_code'])
-            map_data = map_data[map_data['country_code'].str.len() == 3]
-        else:
-            map_data['country_code'] = map_data['country_name'].map(
-                lambda x: None
-            )
+        map_data = map_data.dropna(subset=['country_code'])
         map_data = map_data[map_data['country_code'].str.len() == 3]
+
         if map_variable == "Gini Index":
             fig_map = px.choropleth(
                 map_data,
