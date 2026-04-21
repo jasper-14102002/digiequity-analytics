@@ -549,9 +549,9 @@ with tab3:
                         'didi_score_equal']],
             on='country_name', how='left'
         )
-        map_data = map_data.dropna(subset=['country_code'])
-        map_data = map_data[map_data['country_code'].str.len() == 3]
-
+        country_codes = df_panel[['country_name','country_code']].drop_duplicates()
+map_data = map_data.drop(columns=['country_code'], errors='ignore')
+map_data = map_data.merge(country_codes, on='country_name', how='left').dropna(subset=['country_code'])
         if map_variable == "Gini Index":
             fig_map = px.choropleth(
                 map_data,
